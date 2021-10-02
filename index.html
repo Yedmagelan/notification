@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <title>Notifications</title>
+</head>
+<body>
+    <style>
+        .position{
+            position: absolute;
+            bottom: 3em;
+            right: 17em;
+        }
+        .styles{
+            font-weight: 500;
+            width: 50%;
+            margin: 0 auto;
+            background-color:#1312108c;
+            border-top-left-radius: 10px;
+            border-bottom-right-radius: 30px; 
+            padding: 5px;
+            margin-bottom: 5px;
+            color: #ffff;
+        }
+    </style>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                <div class="position-relative">
+                    <span class="badge badge-danger p-3 font-weight-bold rounded-circle position" id="count"></span>
+                    <img src="professionnalisme.svg" alt="avatar" class="bg-light p-4 img-fluid mx-auto d-block rounded-circle" width="250" height="250">
+                </div>
+                <div id="message" class="bg-primary border-1 text-center p-3"></div>
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                <form>
+                    <div class="form-group col-12">
+                        <textarea name="" id="commentaire" rows="8" class="w-100" placeholder=" Veuillez commenter ici..."></textarea>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-primary col-12 font-weight-bold" id="valider">Envoyer</button>
+                    </div>
+                  </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        // DECLARATION DES VARIABLES 
+        var commentaire = document.getElementById("commentaire");
+        var count = document.getElementById("count");
+        var messages = document.getElementById("message");
+        var ValiderBoutom=document.getElementById("valider");
+        // creer une liste de commentaire
+        var listeCommentaire = [{id:1, commentaires:"salut les pros!"}];
+ 
+        // creer un evenement sur le bouton envoyer lorsqu'il est cliqué 
+        ValiderBoutom.addEventListener('click', commenter);
+        // Appelle de ma fonction message
+        message();
+        // creer une fonction  commenter 
+        function commenter(e){
+            e.preventDefault();
+            const inserCommentaireData = {
+            id: listeCommentaire !== 0 ? listeCommentaire[listeCommentaire.length - 1].id+1:1,
+            commentaires: commentaire.value,
+        };
+        if(commentaire.value !==""){
+            listeCommentaire.push(inserCommentaireData);
+            count.innerHTML= listeCommentaire.length;
+            message();
+
+        }else{
+
+            confirm(" Veuillez commenter svp !");
+            commentaire.focus();
+        }
+
+    }
+    // Création de founction message
+    function message(){
+        messages.innerHTML='';
+        for (const valeur in listeCommentaire) {
+            const objet=listeCommentaire[valeur];
+            messages.innerHTML += `<p class="styles"> ${objet.commentaires} </p>`;
+        }
+    }
+    </script>
+<!-- 
+    - un creation du bloc contenair
+    - 
+ -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+</body>
+</html>
